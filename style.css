@@ -1135,3 +1135,18 @@ body {
   color: white;
   cursor: pointer;
 }
+
+.report-preview-card {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.report-preview-card p {
+  margin: 12px 0 20px;
+}
+
+.back-home-wrap {
+  margin-top: 30px;
+  text-align: center;
+}
