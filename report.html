@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donation Reports | Yuyutsu Youth Group</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Yuyutsu Youth Group logo" />
+        <span class="logo-text">Yuyutsu Youth Group</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="index.html#gallery">Gallery</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="index.html#donate">Donate</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+
+      <button class="menu-btn" aria-label="Open menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <div class="mobile-menu">
+      <a href="index.html#home">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#gallery">Gallery</a>
+      <a href="reports.html">Reports</a>
+      <a href="index.html#donate">Donate</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section reveal-first">
+      <h1 class="section-title">Donation Reports</h1>
+      <p class="section-subtitle">
+        Monthly donation and expense reports shared for transparency and trust.
+      </p>
+
+      <div class="reports-grid">
+        <div class="report-card card reveal" onclick="openReportModal('images/fe_repo.jpeg')">
+          <div class="report-image-wrap">
+            <img src="images/fe_repo.jpeg" alt="February Report" class="report-image">
+          </div>
+          <div class="report-content">
+            <h3>February 2026 Report</h3>
+            <p>Click to view full report.</p>
+          </div>
+        </div>
+
+        <div class="report-card card reveal">
+          <div class="report-content">
+            <h3>Upcoming Reports</h3>
+            <p>More monthly reports will be added here regularly.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="back-home-wrap">
+        <a href="index.html" class="btn btn-secondary">Back to Home</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © 2026 Yuyutsu Youth Group
+  </footer>
+
+  <div id="reportModal" class="report-modal">
+    <span class="report-close" onclick="closeReportModal()">&times;</span>
+    <img class="report-modal-img" id="reportModalImg" alt="Full Report">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

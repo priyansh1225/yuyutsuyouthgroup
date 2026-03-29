@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery | Yuyutsu Youth Group</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+
+<header class="site-header">
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <img src="images/logo.png">
+      <span class="logo-text">Yuyutsu Youth Group</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html#home">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="index.html#donate">Donate</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+   <section id="gallery" class="section reveal">
+  <h2 class="section-title">Our Work Gallery</h2>
+  <p class="section-subtitle">
+    Real moments from our social work and community efforts.
+  </p>
+
+
+  <h3 class="gallery-heading">🐕 Animal Feeding</h3>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="images/animalfeeding.jpeg" onclick="openGalleryImage(this.src)"></div>
+    <div class="gallery-item"><img src="images/animalfeedin1.jpeg" onclick="openGalleryImage(this.src)"></div>
+  </div>
+
+  
+  <h3 class="gallery-heading">🧹 Cleanliness Drive</h3>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="images/drive.jpeg"onclick="openGalleryImage(this.src)"></div>
+    <div class="gallery-item"><img src="images/drive1.jpeg"onclick="openGalleryImage(this.src)"></div>
+    <div class="gallery-item"><img src="images/drive2.jpeg"onclick="openGalleryImage(this.src)"></div>
+  </div>
+
+  
+  <h3 class="gallery-heading">🐾 Animal Care</h3>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="images/animalcare.jpeg"onclick="openGalleryImage(this.src)"></div>
+    <div class="gallery-item"><img src="images/animalcare1.jpeg"onclick="openGalleryImage(this.src)"></div>
+  </div>
+
+
+  <h3 class="gallery-heading">👥 Team Effort</h3>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="images/teameffort.jpeg"></div>
+    <div class="gallery-item"><img src="images/teameffort2.jpeg"></div>
+  </div>
+
+</section>
+<div id="galleryModal" class="gallery-modal">
+  <span class="gallery-close" onclick="closeGalleryModal()">&times;</span>
+  <img class="gallery-modal-img" id="galleryModalImg">
+</div>
+
+
+  <div style="text-align:center; margin: top 15px;">
+    <a href="index.html" class="btn btn-secondary">Back to Home</a>
+  </div>
+
+</section>
+
+</main>
+
+<!-- Image Popup -->
+<div id="galleryModal" class="gallery-modal">
+  <span class="gallery-close" onclick="closeGalleryModal()">&times;</span>
+  <img class="gallery-modal-img" id="galleryModalImg">
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
