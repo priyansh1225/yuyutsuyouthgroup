@@ -34,8 +34,8 @@
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#work">Work</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#reports">Reports</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="report.html">Reports</a></li>
         <li><a href="#donate">Donate</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -51,8 +51,8 @@
       <a href="#home">Home</a>
       <a href="#about">About</a>
       <a href="#work">Work</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#reports">Reports</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="report.html">Reports</a>
       <a href="#donate">Donate</a>
       <a href="#contact">Contact</a>
     </div>
@@ -180,76 +180,45 @@
     </section>
 
 <!--onclick="openGalleryImage(this.src)"  is used to open image on clicking -->
-
-   <section id="gallery" class="section reveal">
+     
+<section id="gallery-preview" class="section reveal">
   <h2 class="section-title">Our Work Gallery</h2>
   <p class="section-subtitle">
-    Real moments from our social work and community efforts.
+    A glimpse of our work and activities.
   </p>
 
-  <!-- Animal Feeding -->
-  <h3 class="gallery-heading">🐕 Animal Feeding</h3>
   <div class="gallery-grid">
-    <div class="gallery-item"><img src="images/animalfeeding.jpeg" onclick="openGalleryImage(this.src)" ></div>
-    <div class="gallery-item"><img src="images/animalfeedin1.jpeg" onclick="openGalleryImage(this.src)"></div>
-  </div>
-     
-
-  <!-- Clean Drive -->
-  <h3 class="gallery-heading">🧹 Cleanliness Drive</h3>
-  <div class="gallery-grid">
-    <div class="gallery-item"><img src="images/drive.jpeg"onclick="openGalleryImage(this.src)"></div>
-    <div class="gallery-item"><img src="images/drive1.jpeg"onclick="openGalleryImage(this.src)"></div>
-    <div class="gallery-item"><img src="images/drive2.jpeg"onclick="openGalleryImage(this.src)"></div>
+    <div class="gallery-item">
+      <img src="images/animalcare.jpeg">
+    </div>
+    <div class="gallery-item">
+      <img src="images/drive.jpeg">
+    </div>
+    <div class="gallery-item">
+      <img src="images/teameffort.jpeg">
+    </div>
   </div>
 
-  <!-- Animal Care -->
-  <h3 class="gallery-heading">🐾 Animal Care</h3>
-  <div class="gallery-grid">
-    <div class="gallery-item"><img src="images/animalcare.jpeg"onclick="openGalleryImage(this.src)"></div>
-     <div class="gallery-item"><img src="images/animalcare1.jpeg"onclick="openGalleryImage(this.src)"></div>
+  <div style="text-align:center; margin-top:20px;">
+    <a href="gallery.html" class="btn btn-primary">View Full Gallery</a>
   </div>
-
-  <!-- Team Effort -->
-  <h3 class="gallery-heading">👥 Team Effort</h3>
-  <div class="gallery-grid">
-    <div class="gallery-item"><img src="images/teameffort.jpeg"></div>
-    <div class="gallery-item"><img src="images/teameffort2.jpeg"></div>
-  </div>
-     
-
 </section>
-<div id="galleryModal" class="gallery-modal">
-  <span class="gallery-close" onclick="closeGalleryModal()">&times;</span>
-  <img class="gallery-modal-img" id="galleryModalImg">
-</div>
 
-    <section id="reports" class="section reveal">
+   <section id="report-preview" class="section reveal">
   <h2 class="section-title">Donation Reports</h2>
   <p class="section-subtitle">
-    We believe in transparency. Here are our monthly donation and expense reports.
+    We believe in transparency. Our monthly donation and expense reports are available on a separate page.
   </p>
 
-  <div class="reports-grid">
-    <div class="report-card card reveal" onclick="openReportModal('images/fe_repo.jpeg')">
-      <div class="report-image-wrap">
-        <img src="images/fe_repo.jpeg" alt="February Donation Report" class="report-image">
-      </div>
-      <div class="report-content">
-        <h3>February 2026 Report</h3>
-        <p>Click to view full report.</p>
-      </div>
+  <div class="card report-preview-card">
+    <h3>View Our Monthly Reports</h3>
+    <p>
+      Click below to see all donation reports and transparency updates in one place.
+    </p>
+    <a href="report.html" class="btn btn-primary">View All Reports</a>
   </div>
-  
+</section>
 
-    <div class="report-card card">
-      <div class="report-content">
-        <h3>Upcoming Reports</h3>
-        <p>
-          Monthly donation reports will be shared here as we continue our work.
-        </p>
-      </div>
-    </div>
 
 
 
