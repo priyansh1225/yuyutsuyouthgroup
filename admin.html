@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Yuyutsu Youth Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .admin-section {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 84px 24px;
+    }
+    .admin-form input,
+    .admin-form textarea {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: var(--white);
+      font-family: "Poppins", sans-serif;
+      font-size: 0.95rem;
+    }
+    .admin-form textarea { resize: vertical; min-height: 100px; }
+    .admin-form input::placeholder,
+    .admin-form textarea::placeholder { color: var(--text-soft); }
+    .admin-form button {
+      border: none;
+      cursor: pointer;
+      font-family: "Poppins", sans-serif;
+    }
+    .hidden { display: none !important; }
+    #message { margin: 10px 0 20px; font-weight: 600; color: var(--orange-soft); }
+    .post-admin-card {
+      display: flex;
+      gap: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+      align-items: flex-start;
+    }
+    .post-admin-card img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .post-admin-card .post-info { flex: 1; }
+    .post-admin-card h4 { margin-bottom: 6px; }
+    .post-admin-card p { font-size: 0.9rem; }
+    .delete-btn {
+      background: rgba(255,60,60,0.15);
+      border: 1px solid rgba(255,60,60,0.3);
+      color: #ff9d9d;
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+    .delete-btn:hover { background: rgba(255,60,60,0.25); }
+  </style>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="floating-orb orb1"></div>
+  <div class="floating-orb orb2"></div>
+
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <img src="images/logo.png" alt="Yuyutsu Logo">
+        <span class="logo-text">Yuyutsu Youth Group</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="admin-section">
+
+      <!-- LOGIN CARD -->
+      <div id="loginSection" class="card glass-card">
+        <span class="section-badge">Admin Access</span>
+        <h2 style="margin:14px 0;">Log In</h2>
+        <div class="admin-form">
+          <input type="email" id="email" placeholder="Email">
+          <input type="password" id="password" placeholder="Password">
+          <button id="loginBtn" class="btn btn-primary">Log In</button>
+        </div>
+        <p id="loginError" style="color:#ff9d9d; font-size:0.9rem;"></p>
+      </div>
+
+      <!-- ADMIN PANEL -->
+      <div id="adminSection" class="hidden">
+        <div class="card glass-card" style="margin-bottom:30px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <div>
+              <span class="section-badge">Post New Update</span>
+              <h2 style="margin-top:10px;">Add Work Update</h2>
+            </div>
+            <button id="logoutBtn" class="btn btn-secondary" style="min-width:auto; padding:10px 18px;">Log Out</button>
+          </div>
+
+          <div class="admin-form">
+            <input type="text" id="title" placeholder="Title (e.g. Fed stray dogs near Market Road)">
+            <textarea id="description" placeholder="Describe what was done..."></textarea>
+           <input type="file" id="imageFile" accept="image/*">
+<div id="imagePreviewWrap" class="hidden" style="position:relative; display:inline-block; margin-bottom:16px;">
+  <img id="imagePreview" style="max-width:150px; border-radius:12px; display:block;">
+  <span id="removeImageBtn" style="position:absolute; top:-8px; right:-8px; background:#ff4d4d; color:white; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-weight:bold;">×</span>
+</div>
+            <button id="submitPost" class="btn btn-primary">Publish Post</button>
+          </div>
+          <p id="message"></p>
+        </div>
+
+        <h3 class="section-title" style="font-size:1.4rem; margin-bottom:16px;">Manage Existing Posts</h3>
+        <div id="postsList"></div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Yuyutsu Youth Group • Admin Panel</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
