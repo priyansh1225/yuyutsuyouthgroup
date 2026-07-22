@@ -24,13 +24,24 @@ async function loadGallery() {
   data.forEach((post) => {
     const item = document.createElement("div");
     item.className = "gallery-item";
-    item.innerHTML = `
-      ${post.image_url ? `<img src="${post.image_url}" alt="${post.title}" onclick="openGalleryImage(this.src)">` : ""}
-      <div style="padding:10px 4px;">
-        <h4 style="margin-bottom:4px;">${post.title}</h4>
-        <p style="font-size:0.88rem; color:var(--text-soft);">${post.description}</p>
-      </div>
-    `;
+
+    if (post.image_url) {
+      item.innerHTML = `
+        <img src="${post.image_url}" alt="${post.title}" onclick="openGalleryImage(this.src)">
+        <div class="gallery-overlay">
+          <span>${post.title}</span>
+          <p class="gallery-overlay-desc">${post.description}</p>
+        </div>
+      `;
+    } else {
+      // Text-only post (no image) - shown as a plain card instead
+      item.innerHTML = `
+        <div class="gallery-overlay" style="position:static; opacity:1; transform:none; background:rgba(255,255,255,0.06);">
+          <span>${post.title}</span>
+          <p class="gallery-overlay-desc">${post.description}</p>
+        </div>
+      `;
+    }
     grid.appendChild(item);
   });
 }
