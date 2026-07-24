@@ -84,6 +84,14 @@
 
 </section>
 
+<div id="textModal" class="report-modal" onclick="document.getElementById('textModal').classList.remove('show')">
+  <div style="max-width:600px; margin:100px auto; background:rgba(10,14,26,0.95); padding:24px; border-radius:16px;" onclick="event.stopPropagation()">
+    <h3 id="textModalTitle" style="margin-bottom:12px;"></h3>
+    <p id="textModalDesc" style="line-height:1.6;"></p>
+    <button onclick="document.getElementById('textModal').classList.remove('show')" class="btn btn-secondary" style="margin-top:16px;">Close</button>
+  </div>
+</div>
+
 </main>
 
 <!-- Image Popup -->

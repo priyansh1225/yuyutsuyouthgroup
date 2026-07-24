@@ -132,7 +132,7 @@ async function loadPosts() {
       <div class="post-info">
         <h4>${post.title} ${images.length > 1 ? `<span style="font-size:0.75rem; color:var(--text-soft);">(+${images.length - 1} more photos)</span>` : ""}</h4>
         <p>${post.description}</p>
-        <button data-id="${post.id}" class="delete-btn">Delete</button>
+       <button data-id="${post.id}" data-images='${JSON.stringify(images)}' class="delete-btn">Delete</button>
       </div>
     `;
     postsList.appendChild(div);
@@ -141,7 +141,16 @@ async function loadPosts() {
   document.querySelectorAll(".delete-btn").forEach((btn) => {
     btn.addEventListener("click", async (e) => {
       const id = e.target.getAttribute("data-id");
+      const post = e.target.getAttribute("data-images");
       if (confirm("Delete this post?")) {
+        // Also delete the actual image files from storage, not just the database row
+        if (post) {
+          const urls = JSON.parse(post);
+          const filePaths = urls.map(url => url.split("/images/")[1]);
+          if (filePaths.length > 0) {
+            await supabaseClient.storage.from("images").remove(filePaths);
+          }
+        }
         await supabaseClient.from("posts").delete().eq("id", id);
         loadPosts();
       }
