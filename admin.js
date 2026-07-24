@@ -41,8 +41,10 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
 
 // Handle picking photos - builds our own list so we can remove individual ones
 imageFile.addEventListener("change", () => {
-  selectedFiles = Array.from(imageFile.files);
+  const newFiles = Array.from(imageFile.files);
+  selectedFiles = selectedFiles.concat(newFiles); // add to existing, don't replace
   renderPreviews();
+  imageFile.value = ""; // reset picker so you can open it again for more
 });
 
 function renderPreviews() {
