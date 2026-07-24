@@ -117,10 +117,9 @@
             <input type="text" id="title" placeholder="Title (e.g. Fed stray dogs near Market Road)">
             <textarea id="description" placeholder="Describe what was done..."></textarea>
            <input type="file" id="imageFile" accept="image/*">
-<div id="imagePreviewWrap" class="hidden" style="position:relative; display:inline-block; margin-bottom:16px;">
-  <img id="imagePreview" style="max-width:150px; border-radius:12px; display:block;">
-  <span id="removeImageBtn" style="position:absolute; top:-8px; right:-8px; background:#ff4d4d; color:white; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-weight:bold;">×</span>
-</div>
+           <input type="file" id="imageFile" accept="image/*" multiple>
+           <div id="imagePreviewWrap" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;"></div>
+
             <button id="submitPost" class="btn btn-primary">Publish Post</button>
           </div>
           <p id="message"></p>

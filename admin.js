@@ -1,40 +1,17 @@
 // admin.js
-// Handles: login, logout, publishing new posts with an image, listing/deleting posts
-
 const loginSection = document.getElementById("loginSection");
 const adminSection = document.getElementById("adminSection");
 const messageBox = document.getElementById("message");
 const loginError = document.getElementById("loginError");
+
 const imageFile = document.getElementById("imageFile");
 const imagePreviewWrap = document.getElementById("imagePreviewWrap");
-const imagePreview = document.getElementById("imagePreview");
-const removeImageBtn = document.getElementById("removeImageBtn");
 
-// Show a preview thumbnail when a file is chosen
-imageFile.addEventListener("change", () => {
-  const file = imageFile.files[0];
-  if (file) {
-    imagePreview.src = URL.createObjectURL(file);
-    imagePreviewWrap.classList.remove("hidden");
-  }
-});
-
-// Clear the selected file when × is clicked
-removeImageBtn.addEventListener("click", () => {
-  imageFile.value = "";
-  imagePreviewWrap.classList.add("hidden");
-  imagePreview.src = "";
-});
-
-
+let selectedFiles = [];
 
 async function checkSession() {
   const { data: { session } } = await supabaseClient.auth.getSession();
-  if (session) {
-    showAdminPanel();
-  } else {
-    showLogin();
-  }
+  if (session) { showAdminPanel(); } else { showLogin(); }
 }
 
 function showAdminPanel() {
@@ -51,15 +28,10 @@ function showLogin() {
 document.getElementById("loginBtn").addEventListener("click", async () => {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
-
   loginError.textContent = "";
-
   const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
-  if (error) {
-    loginError.textContent = "Login failed: " + error.message;
-  } else {
-    showAdminPanel();
-  }
+  if (error) { loginError.textContent = "Login failed: " + error.message; }
+  else { showAdminPanel(); }
 });
 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
@@ -67,11 +39,40 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
   showLogin();
 });
 
+// Handle picking photos - builds our own list so we can remove individual ones
+imageFile.addEventListener("change", () => {
+  selectedFiles = Array.from(imageFile.files);
+  renderPreviews();
+});
+
+function renderPreviews() {
+  imagePreviewWrap.innerHTML = "";
+  selectedFiles.forEach((file, index) => {
+    const wrap = document.createElement("div");
+    wrap.style.cssText = "position:relative; display:inline-block;";
+
+    const img = document.createElement("img");
+    img.src = URL.createObjectURL(file);
+    img.style.cssText = "width:90px; height:90px; object-fit:cover; border-radius:10px; display:block;";
+
+    const removeBtn = document.createElement("span");
+    removeBtn.textContent = "×";
+    removeBtn.style.cssText = "position:absolute; top:-6px; right:-6px; background:#ff4d4d; color:white; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-weight:bold; font-size:14px;";
+    removeBtn.addEventListener("click", () => {
+      selectedFiles.splice(index, 1);
+      renderPreviews();
+    });
+
+    wrap.appendChild(img);
+    wrap.appendChild(removeBtn);
+    imagePreviewWrap.appendChild(wrap);
+  });
+}
+
+// PUBLISH NEW POST (supports multiple images)
 document.getElementById("submitPost").addEventListener("click", async () => {
   const title = document.getElementById("title").value.trim();
   const description = document.getElementById("description").value.trim();
-  const fileInput = document.getElementById("imageFile");
-  const file = fileInput.files[0];
 
   if (!title || !description) {
     messageBox.textContent = "Please fill in both title and description.";
@@ -80,31 +81,22 @@ document.getElementById("submitPost").addEventListener("click", async () => {
 
   messageBox.textContent = "Publishing...";
 
-  let imageUrl = null;
+  let imageUrls = [];
 
-  if (file) {
+  for (const file of selectedFiles) {
     const fileName = `${Date.now()}_${file.name}`;
-    const { error: uploadError } = await supabaseClient
-      .storage
-      .from("images")
-      .upload(fileName, file);
-
+    const { error: uploadError } = await supabaseClient.storage.from("images").upload(fileName, file);
     if (uploadError) {
       messageBox.textContent = "Image upload failed: " + uploadError.message;
       return;
     }
-
-    const { data: publicUrlData } = supabaseClient
-      .storage
-      .from("images")
-      .getPublicUrl(fileName);
-
-    imageUrl = publicUrlData.publicUrl;
+    const { data: publicUrlData } = supabaseClient.storage.from("images").getPublicUrl(fileName);
+    imageUrls.push(publicUrlData.publicUrl);
   }
 
   const { error: insertError } = await supabaseClient
     .from("posts")
-    .insert([{ title, description, image_url: imageUrl }]);
+    .insert([{ title, description, image_urls: imageUrls }]);
 
   if (insertError) {
     messageBox.textContent = "Error saving post: " + insertError.message;
@@ -112,7 +104,9 @@ document.getElementById("submitPost").addEventListener("click", async () => {
     messageBox.textContent = "Post published successfully!";
     document.getElementById("title").value = "";
     document.getElementById("description").value = "";
-    fileInput.value = "";
+    imageFile.value = "";
+    selectedFiles = [];
+    renderPreviews();
     loadPosts();
   }
 });
@@ -126,19 +120,17 @@ async function loadPosts() {
     .select("*")
     .order("created_at", { ascending: false });
 
-  if (error) {
-    postsList.innerHTML = "Error loading posts.";
-    return;
-  }
+  if (error) { postsList.innerHTML = "Error loading posts."; return; }
 
   postsList.innerHTML = "";
   data.forEach((post) => {
+    const images = post.image_urls && post.image_urls.length > 0 ? post.image_urls : (post.image_url ? [post.image_url] : []);
     const div = document.createElement("div");
     div.className = "card glass-card post-admin-card";
     div.innerHTML = `
-      ${post.image_url ? `<img src="${post.image_url}" alt="${post.title}">` : ""}
+      ${images[0] ? `<img src="${images[0]}" alt="${post.title}">` : ""}
       <div class="post-info">
-        <h4>${post.title}</h4>
+        <h4>${post.title} ${images.length > 1 ? `<span style="font-size:0.75rem; color:var(--text-soft);">(+${images.length - 1} more photos)</span>` : ""}</h4>
         <p>${post.description}</p>
         <button data-id="${post.id}" class="delete-btn">Delete</button>
       </div>
