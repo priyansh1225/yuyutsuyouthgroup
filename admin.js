@@ -39,6 +39,10 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
 });
 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  const userEmail = session?.user?.email || "unknown";
+
+  await logAction("LOGOUT", "auth", `Logged out: ${userEmail}`);
   await supabaseClient.auth.signOut();
   showLogin();
 });
