@@ -30,8 +30,12 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   const password = document.getElementById("password").value;
   loginError.textContent = "";
   const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
-  if (error) { loginError.textContent = "Login failed: " + error.message; }
-  else { showAdminPanel(); }
+  if (error) {
+    loginError.textContent = "Login failed: " + error.message;
+  } else {
+    await logAction("LOGIN", "auth", `Logged in as ${email}`);
+    showAdminPanel();
+  }
 });
 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
@@ -103,6 +107,7 @@ document.getElementById("submitPost").addEventListener("click", async () => {
   if (insertError) {
     messageBox.textContent = "Error saving post: " + insertError.message;
   } else {
+    await logAction("INSERT", "posts", `Created post titled "${title}"`);
     messageBox.textContent = "Post published successfully!";
     document.getElementById("title").value = "";
     document.getElementById("description").value = "";
@@ -154,6 +159,7 @@ async function loadPosts() {
           }
         }
         await supabaseClient.from("posts").delete().eq("id", id);
+        await logAction("DELETE", "posts", `Deleted post ID: ${id}`);
         loadPosts();
       }
     });
