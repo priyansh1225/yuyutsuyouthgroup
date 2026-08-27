@@ -160,42 +160,6 @@ if (window.innerWidth > 768) {
     });
   });
 }
-function openReportModal(imageSrc) {
-  const modal = document.getElementById("reportModal");
-  const modalImg = document.getElementById("reportModalImg");
-
-  if (modal && modalImg) {
-    modalImg.src = imageSrc;
-    modal.classList.add("show");
-    document.body.style.overflow = "hidden";
-  }
-}
-
-function closeReportModal() {
-  const modal = document.getElementById("reportModal");
-
-  if (modal) {
-    modal.classList.remove("show");
-    document.body.style.overflow = "";
-  }
-}
-
-document.addEventListener("click", function (e) {
-  const modal = document.getElementById("reportModal");
-  const modalImg = document.getElementById("reportModalImg");
-
-  if (!modal || !modalImg) return;
-
-  if (e.target === modal) {
-    closeReportModal();
-  }
-});
-
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Escape") {
-    closeReportModal();
-  }
-});
 function openGalleryImage(src) {
   const modal = document.getElementById("galleryModal");
   const modalImg = document.getElementById("galleryModalImg");
